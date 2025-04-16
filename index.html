@@ -5,14 +5,14 @@
   
     <title>My Portfolio</title>
     <style>
-        * {
+        *{
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
         }
 
-        :root {
+        .root {
             --primary: #5045e4;
             --accent: #00d4ff;
             --dark: #222;
@@ -20,18 +20,18 @@
             --transition: all 0.3s ease;
         }
 
-        html {
+        .html {
             scroll-behavior: smooth;
         }
 
-        body {
+        .body {
             color: var(--dark);
             background: var(--light);
             line-height: 1.6;
         }
 
 
-        header {
+        .header {
             position: fixed;
             width: 100%;
             padding: 1rem 5%;
@@ -196,7 +196,7 @@
             background: #ff00cc;
         }
 
-        /* Project section styles */
+        
         .projects-container {
             display: flex;
             flex-wrap: wrap;
@@ -335,7 +335,7 @@
 
         }
 
-        /* From Uiverse.io by nikk7007 */
+        
         .button {
             --color: #00ff08;
             padding: 0.8em 1.7em;
@@ -527,51 +527,7 @@
         </form>
     </section>
 
-    <script>
-        const navToggle = document.querySelector('.mobile-toggle');
-        const navbar = document.querySelector('.navbar');
-
-        if (navToggle) {
-            navToggle.addEventListener('click', () => {
-                navbar.classList.toggle('active');
-            });
-        }
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-
-                if (navbar.classList.contains('active')) {
-                    navbar.classList.remove('active');
-                }
-            });
-        });
-
-        document.addEventListener('DOMContentLoaded', function () {
-            const skillsSection = document.querySelector('#skills');
-
-            const observer = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const skillBars = skillsSection.querySelectorAll('.skill-level');
-
-                        skillBars.forEach(bar => {
-                            const level = bar.getAttribute('data-level');
-                            bar.style.width = level;
-                            bar.style.transition = 'width 1.5s ease';
-                        });
-
-                        observer.unobserve(skillsSection);
-                    }
-                });
-            }, { threshold: 0.5 });
-
-            observer.observe(skillsSection);
-        });
-    </script>
+   
 </body>
 
 </html>
