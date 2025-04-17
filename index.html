@@ -2,17 +2,17 @@
 <html lang="en">
 
 <head>
-  
     <title>My Portfolio</title>
     <style>
-        *{
+        /* styling */
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
         }
 
-        .root {
+        :root {
             --primary: #5045e4;
             --accent: #00d4ff;
             --dark: #222;
@@ -20,34 +20,69 @@
             --transition: all 0.3s ease;
         }
 
-        .html {
+        /* scrol bar */
+        html {
             scroll-behavior: smooth;
         }
 
-        .body {
+        body {
             color: var(--dark);
             background: var(--light);
             line-height: 1.6;
         }
 
-
+        /* header */
         .header {
             position: fixed;
             width: 100%;
             padding: 1rem 5%;
-            background: var(--dark);
+            background: rgba(34, 34, 34, 0.95);
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
         }
 
+        .header.scrolled {
+            padding: 0.7rem 5%;
+            background: rgba(34, 34, 34, 0.98);
+        }
+
+        /* portfolio logo */
         .logo {
             color: #fff;
             font-size: 1.8rem;
             font-weight: 700;
             text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            color: var(--accent);
+            transform: scale(1.05);
+        }
+
+        .logo::before {
+            content: '<';
+            color: var(--accent);
+            margin-right: 5px;
+        }
+
+        .logo::after {
+            content: '/>';
+            color: var(--accent);
+            margin-left: 5px;
+        }
+
+        /* navbar starts */
+        .navbar {
+            display: flex;
+            align-items: center;
         }
 
         .navbar a {
@@ -58,12 +93,30 @@
             font-size: 18px;
             transition: var(--transition);
             border-radius: 5px;
+            position: relative;
         }
 
         .navbar a:hover {
             color: var(--accent);
-            background: rgba(255, 255, 255, 0.1);
         }
+
+        .navbar a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: var(--transition);
+        }
+
+        .navbar a:hover::after {
+            width: 70%;
+        }
+
+        /* end's */
 
 
         section {
@@ -94,7 +147,7 @@
             border-radius: 2px;
         }
 
-
+        /* frist page styling */
         #home {
             background: linear-gradient(135deg, var(--primary), var(--accent));
             color: #fff;
@@ -114,7 +167,7 @@
             animation: fadeIn 1.5s ease;
         }
 
-
+        /* second */
         #about {
             background: #fff;
         }
@@ -128,7 +181,7 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
-
+        /* third */
         #skills {
             background: #f9f9f9;
         }
@@ -168,6 +221,7 @@
             position: relative;
         }
 
+        /* forth page */
         #projects {
             background: #fff;
         }
@@ -180,6 +234,7 @@
             border-radius: 10px;
         }
 
+        /* skill bar */
         .html {
             background: #ff5733;
         }
@@ -196,7 +251,7 @@
             background: #ff00cc;
         }
 
-        
+
         .projects-container {
             display: flex;
             flex-wrap: wrap;
@@ -216,7 +271,7 @@
             margin-bottom: 10px;
         }
 
-
+        /* contact page */
         #contact {
             background: #fff;
         }
@@ -230,8 +285,7 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .contact-form input,
-        .contact-form textarea {
+        .form-input {
             width: 100%;
             padding: 1rem;
             margin-bottom: 1.5rem;
@@ -240,14 +294,13 @@
             transition: var(--transition);
         }
 
-        .contact-form input:focus,
-        .contact-form textarea:focus {
+        .form-input:focus {
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(80, 69, 228, 0.2);
         }
 
-        .contact-form button {
+        .form-btn {
             width: 100%;
             padding: 1rem;
             background: var(--primary);
@@ -260,12 +313,12 @@
             transition: var(--transition);
         }
 
-        .contact-form button:hover {
+        .form-btn:hover {
             background: var(--accent);
             transform: translateY(-3px);
         }
 
-
+        /* media quary */
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -280,16 +333,23 @@
 
 
         @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+
+            /*navbar act..  */
             .navbar {
                 position: fixed;
                 top: -100%;
                 left: 0;
                 width: 100%;
-                background: var(--dark);
+                background: rgba(34, 34, 34, 0.95);
                 padding: 1rem 0;
                 text-align: center;
                 flex-direction: column;
                 transition: var(--transition);
+                backdrop-filter: blur(10px);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             }
 
             .navbar.active {
@@ -301,6 +361,16 @@
                 margin: 0.5rem 0;
             }
 
+            .navbar a::after {
+                left: 0;
+                transform: none;
+                bottom: -2px;
+            }
+
+            .navbar a:hover::after {
+                width: 100%;
+            }
+
             #home h1 {
                 font-size: 2.5rem;
             }
@@ -309,6 +379,7 @@
                 font-size: 2rem;
             }
 
+            /* for projects */
             .projects {
                 font-size: 2rem;
             }
@@ -335,7 +406,7 @@
 
         }
 
-        
+        /* butten of project menu */
         .button {
             --color: #00ff08;
             padding: 0.8em 1.7em;
@@ -355,8 +426,8 @@
             margin-left: 30px;
         }
 
-        .button::before,
-        .button::after {
+        .btn-effect::before,
+        .btn-effect::after {
             content: '';
             display: block;
             width: 50px;
@@ -379,8 +450,8 @@
             top: calc(100% + 1em);
         }
 
-        .button:hover::before,
-        .button:hover::after {
+        .btn-effect:hover::before,
+        .btn-effect:hover::after {
             height: 410px;
             width: 410px;
         }
@@ -396,24 +467,26 @@
 </head>
 
 <body>
-    <header>
+    <!-- header  -->
+    <header class="header">
         <a href="#home" class="logo">Portfolio</a>
+        <!-- nav bar -->
         <nav class="navbar">
             <a href="#home">Home</a>
             <a href="#about">About</a>
             <a href="#skills">Skills</a>
-            <a href="#projects">projects</a>
+            <a href="#projects">Projects</a>
             <a href="#contact">Contact</a>
         </nav>
     </header>
-
+    <!-- frist section -->
     <section id="home">
         <div class="home-content">
             <h1>Welcome to My Portfolio</h1>
             <p>I am a passionate web developer creating elegant and functional websites.</p>
         </div>
     </section>
-
+    <!-- second -->
     <section style="background: #f0ff1a2b;" id="about">
         <h2 class="section-title">About Me</h2>
         <div class="content">
@@ -424,7 +497,7 @@
                 interfaces that provide exceptional user experiences.</p>
         </div>
     </section>
-
+    <!-- 3 -->
     <section style="background: #f0ff1a2b;" id="skills">
         <h2 class="section-title">My Skills</h2>
         <div class="skills-container">
@@ -466,7 +539,7 @@
             </div>
         </div>
     </section>
-
+    <!-- project section -->
     <div style="background: #f0ff1a2b;">
         <section style="background: #f0ff1a11;" id="projects">
             <h2 class="section-title">My projects</h2>
@@ -479,10 +552,10 @@
                     <br>
 
                     <a href="./yash-project/ht.html">
-                        <button class="button">
-                          <span style="color: #ff00cc;">View Projects</span>
+                        <button class="button btn-effect">
+                            <span style="color: #ff00cc;">View Projects</span>
                         </button>
-                      </a>
+                    </a>
 
                 </div>
 
@@ -494,10 +567,10 @@
                     <br>
 
                     <a href="./yash-project/css.html">
-                        <button class="button">
-                          <span style="color: #ff00cc;">View Projects</span>
+                        <button class="button btn-effect">
+                            <span style="color: #ff00cc;">View Projects</span>
                         </button>
-                      </a>
+                    </a>
                 </div>
 
                 <!-- JavaScript Projects -->
@@ -508,70 +581,81 @@
                     <br>
 
                     <a href="./yash-project/js.html">
-                        <button class="button">
-                          <span style="color: #ff00cc;">View Projects</span>
+                        <button class="button btn-effect">
+                            <span style="color: #ff00cc;">View Projects</span>
                         </button>
-                      </a>
-                      
-            </div>
+                    </a>
+
+                </div>
         </section>
     </div>
-
+    <!-- contact section -->
     <section style="background: #f0ff1a2b;" id="contact">
         <h2 class="section-title">Contact Me</h2>
         <form class="contact-form">
-            <input type="text" placeholder="Your Name" required>
-            <input type="email" placeholder="Your Email" required>
-            <textarea rows="5" placeholder="Your Message" required></textarea>
-            <button type="submit">Send Message</button>
+            <input type="text" placeholder="Your Name" required class="form-input">
+            <input type="email" placeholder="Your Email" required class="form-input">
+            <textarea rows="5" placeholder="Your Message" required class="form-input"></textarea>
+            <button type="submit" class="form-btn">Send Message</button>
         </form>
     </section>
+    <!-- js code  -->
     <script>
         const navToggle = document.querySelector('.mobile-toggle');
         const navbar = document.querySelector('.navbar');
-    
+        const header = document.querySelector('.header');
+
         if (navToggle) {
             navToggle.addEventListener('click', () => {
                 navbar.classList.toggle('active');
             });
         }
-    
+
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
                 });
-    
+
                 if (navbar.classList.contains('active')) {
                     navbar.classList.remove('active');
                 }
             });
         });
-    
+
+        //  to scroll Header
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
         document.addEventListener('DOMContentLoaded', function () {
             const skillsSection = document.querySelector('#skills');
-    
+
             const observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const skillBars = skillsSection.querySelectorAll('.skill-level');
-    
+
                         skillBars.forEach(bar => {
                             const level = bar.getAttribute('data-level');
                             bar.style.width = level;
                             bar.style.transition = 'width 1.5s ease';
                         });
-    
+
                         observer.unobserve(skillsSection);
                     }
                 });
             }, { threshold: 0.5 });
-    
+
             observer.observe(skillsSection);
         });
     </script>
-   
+
 </body>
 
 </html>
