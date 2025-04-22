@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <title>My Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         /* styling */
         * {
@@ -18,18 +19,18 @@
             --dark: #222;
             --light: #f8f9fa;
             --transition: all 0.3s ease;
-        }
+        } 
 
-        /* scrol bar */
+        /* scroll bar */
         html {
             scroll-behavior: smooth;
         }
 
-        body {
+         body {
             color: var(--dark);
             background: var(--light);
             line-height: 1.6;
-        }
+        } 
 
         /* header */
         .header {
@@ -43,7 +44,7 @@
             z-index: 100;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(10px);
-            transition: var(--transition);
+            transition: var(--transition); 
         }
 
         .header.scrolled {
@@ -59,7 +60,7 @@
             text-decoration: none;
             display: flex;
             align-items: center;
-            transition: var(--transition);
+             transition: var(--transition);
         }
 
         .logo:hover {
@@ -79,6 +80,55 @@
             margin-left: 5px;
         }
 
+        /* Mobile toggle button */
+        .mobile-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            width: 30px;
+            height: 24px;
+            position: relative;
+            z-index: 101;
+        }
+
+        .mobile-toggle span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background: white;
+            position: absolute;
+            left: 0;
+            transition: var(--transition);
+        }
+
+        .mobile-toggle span:nth-child(1) {
+            top: 0;
+        }
+
+        .mobile-toggle span:nth-child(2) {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .mobile-toggle span:nth-child(3) {
+            bottom: 0;
+        }
+
+        .mobile-toggle.active span:nth-child(1) {
+            transform: rotate(45deg);
+            top: 10px;
+        }
+
+        .mobile-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg);
+            bottom: 10px;
+        }
+
         /* navbar starts */
         .navbar {
             display: flex;
@@ -91,7 +141,7 @@
             padding: 10px 15px;
             margin-left: 10px;
             font-size: 18px;
-            transition: var(--transition);
+            transition: var(--transition); 
             border-radius: 5px;
             position: relative;
         }
@@ -149,7 +199,9 @@
 
         /* frist page styling */
         #home {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
+            background: linear-gradient(135deg,
+             var(--primary), 
+             var(--accent));
             color: #fff;
             text-align: center;
         }
@@ -167,59 +219,63 @@
             animation: fadeIn 1.5s ease;
         }
 
-        /* second */
+        /* About section with photo */
         #about {
             background: #fff;
         }
 
-        #about .content {
+        .about-container {
+            display: flex;
             max-width: 800px;
             margin: 0 auto;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .about-photo {
+            flex: 1;
+            text-align: center;
+        }
+
+        .profile-pic-container {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto;
+            border: 5px solid var(--accent);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            animation: glowPulse 2s infinite alternate;
+        }
+
+        @keyframes glowPulse {
+            from {
+                box-shadow: 0 0 10px 2px var(--accent);
+            }
+            to {
+                box-shadow: 0 0 20px 5px var(--accent);
+            }
+        }
+
+        .profile-pic-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .profile-pic-container:hover img {
+            transform: scale(1.1);
+        }
+
+        .about-content {
+            flex: 2;
             padding: 2rem;
             background: white;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
-        /* third */
-        #skills {
-            background: #f9f9f9;
-        }
-
-        .skills-container {
-            max-width: 700px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .skill {
-            margin: 1.5rem 0;
-        }
-
-        .skill-name {
-            font-weight: bold;
-            margin-bottom: 0.8rem;
-            font-size: 1.1rem;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .skill-bar {
-            height: 12px;
-            background: #e1e1e1;
-            border-radius: 6px;
-            overflow: hidden;
-        }
-
-        .skill-level {
-            height: 100%;
-            border-radius: 6px;
-            width: 0;
-            position: relative;
-        }
 
         /* forth page */
         #projects {
@@ -331,6 +387,14 @@
             }
         }
 
+        @keyframes slideFromRight {
+            from {
+                right: -100%;
+            }
+            to {
+                right: 0;
+            }
+        }
 
         @media (max-width: 768px) {
             .mobile-toggle {
@@ -340,25 +404,29 @@
             /*navbar act..  */
             .navbar {
                 position: fixed;
-                top: -100%;
-                left: 0;
-                width: 100%;
+                top: 0;
+                right: -100%; /* Changed from top: -100% to right: -100% */
+                height: 100vh;
+                width: 70%; /* Width of the mobile menu */
                 background: rgba(34, 34, 34, 0.95);
-                padding: 1rem 0;
+                padding: 5rem 1rem 1rem;
                 text-align: center;
                 flex-direction: column;
                 transition: var(--transition);
                 backdrop-filter: blur(10px);
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+                z-index: 99;
             }
 
             .navbar.active {
-                top: 70px;
+                right: 0; /* Changed from top: 70px to right: 0 */
+                animation: slideFromRight 0.3s forwards;
             }
 
             .navbar a {
                 display: block;
-                margin: 0.5rem 0;
+                margin: 1rem 0;
+                font-size: 1.2rem;
             }
 
             .navbar a::after {
@@ -377,6 +445,21 @@
 
             .section-title {
                 font-size: 2rem;
+            }
+
+            /* For about section in mobile */
+            .about-container {
+                flex-direction: column;
+            }
+
+            .profile-pic-container {
+                width: 250px; /* Larger photo on mobile */
+                height: 250px;
+                margin-bottom: 2rem;
+            }
+
+            .about-photo {
+                margin-bottom: 1rem;
             }
 
             /* for projects */
@@ -403,7 +486,20 @@
                 background: var(--accent);
                 border-radius: 2px;
             }
-
+            
+            /* Footer responsive */
+            .footer {
+                padding: 2rem 1rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            .footer-section {
+                width: 100%;
+                margin-bottom: 2rem;
+            }
         }
 
         /* butten of project menu */
@@ -424,8 +520,7 @@
             color: var(--color);
             z-index: 1;
             margin-left: 30px;
-        }
-
+        }   
         .btn-effect::before,
         .btn-effect::after {
             content: '';
@@ -439,17 +534,14 @@
             background-color: var(--color);
             transition: 1s ease;
         }
-
         .button::before {
             top: -1em;
             left: -1em;
         }
-
         .button::after {
             left: calc(100% + 1em);
             top: calc(100% + 1em);
         }
-
         .btn-effect:hover::before,
         .btn-effect:hover::after {
             height: 410px;
@@ -463,13 +555,66 @@
         .button:active {
             filter: brightness(.8);
         }
+        
+        /* Footer styles */
+        .footer {
+            background: #222;
+            color: #fff;
+            padding: 3rem 5%;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-section {
+            width: 30%;
+        }
+        
+        .footer-section h3 {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+        
+        .footer-section p {
+            margin-bottom: 1rem;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 2rem;
+        }
+        
+        .sky {
+    height: 40px;
+}
+
+.git {
+    height: 40px;
+}
+
+.link {
+    height: 40px;
+}
     </style>
 </head>
-
 <body>
+    <link rel="stylesheet" href="index.css">
     <!-- header  -->
     <header class="header">
         <a href="#home" class="logo">Portfolio</a>
+        <!-- Mobile toggle button with proper inline styles -->
+        <button class="mobile-toggle">
+            <span style="display: block; width: 100%; height: 3px; background: white; position: absolute; left: 0; transition: all 0.3s ease; top: 0;"></span>
+            <span style="display: block; width: 100%; height: 3px; background: white; position: absolute; left: 0; transition: all 0.3s ease; top: 50%; transform: translateY(-50%);"></span>
+            <span style="display: block; width: 100%; height: 3px; background: white; position: absolute; left: 0; transition: all 0.3s ease; bottom: 0;"></span>
+        </button>
         <!-- nav bar -->
         <nav class="navbar">
             <a href="#home">Home</a>
@@ -489,56 +634,70 @@
     <!-- second -->
     <section style="background: #f0ff1a2b;" id="about">
         <h2 class="section-title">About Me</h2>
-        <div class="content">
-            <p>Hello! I'm a dedicated web developer with a strong passion for creating beautiful, functional websites.
-                With expertise in HTML, CSS, JavaScript, and database management, I deliver high-quality web solutions
-                that meet client needs.</p>
-            <p>My approach combines technical skill with creative design thinking to build responsive, user-friendly
-                interfaces that provide exceptional user experiences.</p>
-        </div>
-    </section>
-    <!-- 3 -->
-    <section style="background: #f0ff1a2b;" id="skills">
-        <h2 class="section-title">My Skills</h2>
-        <div class="skills-container">
-            <div class="skill">
-                <div class="skill-name">
-                    <span>HTML</span>
-                    <span>90%</span>
-                </div>
-                <div class="skill-bar">
-                    <div class="skill-level html" data-level="90%"></div>
+        <div class="about-container">
+            <div class="about-photo">
+                <div style="width: 300px; height: 300px; border-radius: 50%; overflow: hidden; margin: 0 auto; border: 5px solid #00d4ff; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); animation: glowPulse 2s infinite alternate;">
+                    <img src="./yash-project/assets/download.jpeg" alt="Profile Photo" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;">
                 </div>
             </div>
-            <div class="skill">
-                <div class="skill-name">
-                    <span>CSS</span>
-                    <span>85%</span>
-                </div>
-                <div class="skill-bar">
-                    <div class="skill-level css" data-level="85%"></div>
-                </div>
-            </div>
-            <div class="skill">
-                <div class="skill-name">
-                    <span>JavaScript</span>
-                    <span>75%</span>
-                </div>
-                <div class="skill-bar">
-                    <div class="skill-level js" data-level="75%"></div>
-                </div>
-            </div>
-            <div class="skill">
-                <div class="skill-name">
-                    <span>Database Management</span>
-                    <span>80%</span>
-                </div>
-                <div class="skill-bar">
-                    <div class="skill-level dbms" data-level="80%"></div>
-                </div>
+            <div class="about-content">
+                <p>Hello! I'm a dedicated web developer with a strong passion for creating beautiful, functional websites.
+                    With expertise in HTML, CSS, JavaScript, and database management, I deliver high-quality web solutions
+                    that meet client needs.</p>
+                <p>My approach combines technical skill with creative design thinking to build responsive, user-friendly
+                    interfaces that provide exceptional user experiences.</p>
             </div>
         </div>
     </section>
+   <!-- Skills Section -->
+<section style="background: #f0ff1a2b; min-height: 100vh; padding: 6rem 5% 2rem; display: flex; flex-direction: column; justify-content: center;" id="skills">
+    <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 2rem; color: #5045e4; position: relative;">My Skills</h2>
+    <div style="max-width: 700px; margin: 0 auto; background: #ffffff; padding: 2rem; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);">
+        <!-- HTML Skill -->
+        <div style="margin: 1.5rem 0;">
+            <div style="font-weight: bold; margin-bottom: 0.8rem; font-size: 1.2rem; display: flex; justify-content: space-between;">
+                <span>HTML</span>
+                <span>90%</span>
+            </div>
+            <div style="height: 20px; background: #e1e1e1; border-radius: 10px; overflow: hidden;">
+                <div style="height: 100%; border-radius: 10px; width: 90%; background: #ff5733; transition: width 1.5s ease;" class="skill-bar"></div>
+            </div>
+        </div>
+        
+        <!-- CSS Skill -->
+        <div style="margin: 1.5rem 0;">
+            <div style="font-weight: bold; margin-bottom: 0.8rem; font-size: 1.2rem; display: flex; justify-content: space-between;">
+                <span>CSS</span>
+                <span>85%</span>
+            </div>
+            <div style="height: 20px; background: #e1e1e1; border-radius: 10px; overflow: hidden;">
+                <div style="height: 100%; border-radius: 10px; width: 85%; background: #264de4; transition: width 1.5s ease;" class="skill-bar"></div>
+            </div>
+        </div>
+        
+        <!-- JavaScript Skill -->
+        <div style="margin: 1.5rem 0;">
+            <div style="font-weight: bold; margin-bottom: 0.8rem; font-size: 1.2rem; display: flex; justify-content: space-between;">
+                <span>JavaScript</span>
+                <span>75%</span>
+            </div>
+            <div style="height: 20px; background: #e1e1e1; border-radius: 10px; overflow: hidden;">
+                <div style="height: 100%; border-radius: 10px; width: 75%; background: #ffdd00; transition: width 1.5s ease;" class="skill-bar"></div>
+            </div>
+        </div>
+        
+        <!-- Database Management Skill -->
+        <div style="margin: 1.5rem 0;">
+            <div style="font-weight: bold; margin-bottom: 0.8rem; font-size: 1.2rem; display: flex; justify-content: space-between;">
+                <span>Database Management</span>
+                <span>80%</span>
+            </div>
+            <div style="height: 20px; background: #e1e1e1; border-radius: 10px; overflow: hidden;">
+                <div style="height: 100%; border-radius: 10px; width: 80%; background: #ff00cc; transition: width 1.5s ease;" class="skill-bar"></div>
+            </div>
+        </div>
+    </div>
+</section>
     <!-- project section -->
     <div style="background: #f0ff1a2b;">
         <section style="background: #f0ff1a11;" id="projects">
@@ -550,43 +709,37 @@
                     <br>
                     <br>
                     <br>
-
                     <a href="./yash-project/ht.html">
                         <button class="button btn-effect">
                             <span style="color: #ff00cc;">View Projects</span>
                         </button>
                     </a>
-
                 </div>
-
                 <!-- CSS Projects -->
                 <div class="project-div">
                     <h3>CSS Projects</h3>
                     <br>
                     <br>
                     <br>
-
                     <a href="./yash-project/css.html">
                         <button class="button btn-effect">
                             <span style="color: #ff00cc;">View Projects</span>
                         </button>
                     </a>
                 </div>
-
-                <!-- JavaScript Projects -->
+             <!-- JavaScript Projects -->
                 <div class="project-div">
                     <h3>JavaScript Projects</h3>
                     <br>
                     <br>
                     <br>
-
                     <a href="./yash-project/js.html">
                         <button class="button btn-effect">
                             <span style="color: #ff00cc;">View Projects</span>
                         </button>
                     </a>
-
                 </div>
+            </div>
         </section>
     </div>
     <!-- contact section -->
@@ -599,63 +752,85 @@
             <button type="submit" class="form-btn">Send Message</button>
         </form>
     </section>
+
+    <!-- Footer Section -->
+    <footer style="background: #222; color: #fff; padding: 3rem 5%;" class="footer">
+        <div style="display: flex; justify-content: space-between; max-width: 1200px; margin: 0 auto;" class="footer-content">
+            <div style="width: 30%;" class="footer-section">
+                <h3 style="color: #00d4ff; margin-bottom: 1.5rem; font-size: 1.5rem;">About Me</h3>
+                <p>A passionate web developer dedicated to creating beautiful and functional websites with a focus on user experience and modern design principles.</p>
+            </div>
+            
+            <div style="width: 30%;" class="footer-section">
+                <h3 style="color: #00d4ff; margin-bottom: 1.5rem; font-size: 1.5rem;">Quick Links</h3>
+                <p><a href="#home" style="color: #fff; text-decoration: none; transition: all 0.3s ease;">Home</a></p>
+                <p><a href="#about" style="color: #fff; text-decoration: none; transition: all 0.3s ease;">About</a></p>
+                <p><a href="#skills" style="color: #fff; text-decoration: none; transition: all 0.3s ease;">Skills</a></p>
+                <p><a href="#projects" style="color: #fff; text-decoration: none; transition: all 0.3s ease;">Projects</a></p>
+                <p><a href="#contact" style="color: #fff; text-decoration: none; transition: all 0.3s ease;">Contact</a></p>
+            </div>
+            
+            <div style="width: 30%;" class="footer-section">
+                <h3 style="color: #00d4ff; margin-bottom: 1.5rem; font-size: 1.5rem;">Connect With Me</h3>
+                <p>Email: yashdhapke6@gmail.com </p>
+                <p>Phone: 9764411***</p><br>
+                <a href="https://join.skype.com/invite/xThhLMUx8P4t"><img class="sky" src="./yash-project/assets/skype-removebg-preview.png"></a>
+                <a href="https://github.com/yashfullstackDeveloper01/html"><img class="git" src="./yash-project/assets/git-removebg-preview.png"></a>
+                <a href=""><img class="link" src="./yash-project/assets/link-removebg-preview.png"></a>
+            
+            </div>
+            </div>
+            
+            
+            
+            </div>
+    </footer>   
     <!-- js code  -->
-    <script>
-        const navToggle = document.querySelector('.mobile-toggle');
-        const navbar = document.querySelector('.navbar');
-        const header = document.querySelector('.header');
-
-        if (navToggle) {
-            navToggle.addEventListener('click', () => {
-                navbar.classList.toggle('active');
-            });
-        }
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-
-                if (navbar.classList.contains('active')) {
-                    navbar.classList.remove('active');
-                }
-            });
-        });
-
-        //  to scroll Header
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
+     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    // Get elements
+    const mobileToggle = document.querySelector('.mobile-toggle');
+    const navbar = document.querySelector('.navbar');
+    const header = document.querySelector('.header');
+    const navLinks = document.querySelectorAll('.navbar a');
+    
+    // Toggle menu function
+    function toggleMenu() {
+        mobileToggle.classList.toggle('active');
+        navbar.classList.toggle('active');
+    }
+    
+    // Event listener for mobile toggle button
+    mobileToggle.addEventListener('click', toggleMenu);
+    
+    // Close menu when clicking on nav links
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (navbar.classList.contains('active')) {
+                toggleMenu();
             }
         });
-
-        document.addEventListener('DOMContentLoaded', function () {
-            const skillsSection = document.querySelector('#skills');
-
-            const observer = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const skillBars = skillsSection.querySelectorAll('.skill-level');
-
-                        skillBars.forEach(bar => {
-                            const level = bar.getAttribute('data-level');
-                            bar.style.width = level;
-                            bar.style.transition = 'width 1.5s ease';
-                        });
-
-                        observer.unobserve(skillsSection);
-                    }
-                });
-            }, { threshold: 0.5 });
-
-            observer.observe(skillsSection);
-        });
-    </script>
-
+    });
+    
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', (event) => {
+        const isClickInsideNavbar = navbar.contains(event.target);
+        const isClickOnToggle = mobileToggle.contains(event.target);
+        
+        if (navbar.classList.contains('active') && !isClickInsideNavbar && !isClickOnToggle) {
+            toggleMenu();
+        }
+    });
+});
+     </script>
 </body>
-
 </html>
