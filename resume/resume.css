@@ -1,0 +1,216 @@
+     /* Reset and base styles */
+     * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+        background-color: #f5f5f5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+    
+    /* A4 Page Size */
+    .resume-container {
+        width: 210mm;
+        height: 297mm;
+        background-color: white;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        margin: 20px auto;
+        position: relative;
+        overflow: hidden;
+        display: grid;
+        grid-template-columns: 75mm 135mm;
+    }
+    
+    /* Left Sidebar */
+    .sidebar {
+        background-color: #1a365d;
+        color: white;
+        padding: 30px;
+        height: 100%;
+    }
+    
+    /* Profile Image Section */
+    .profile-image-container {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        margin: 0 auto 25px;
+        overflow: hidden;
+        border: 5px solid #2d4f7c;
+        background-color: #e2e8f0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .profile-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .profile-placeholder {
+        font-size: 40px;
+        color: #1a365d;
+    }
+    
+    /* Name and Title */
+    .name {
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 5px;
+    }
+    
+    .title {
+        font-size: 16px;
+        text-align: center;
+        opacity: 0.9;
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #3182ce;
+    }
+    
+    /* Contact Info */
+    .sidebar-section {
+        margin-bottom: 25px;
+    }
+    
+    .sidebar-title {
+        font-size: 16px;
+        color: #63b3ed;
+        margin-bottom: 10px;
+        font-weight: bold;
+        border-bottom: 1px solid #63b3ed;
+        padding-bottom: 5px;
+    }
+    
+    .contact-item {
+        margin: 10px 0;
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+    }
+    
+    .contact-item i {
+        margin-right: 10px;
+        width: 16px;
+        text-align: center;
+    }
+    
+    /* Main Content */
+    .main-content {
+        padding: 30px;
+        height: 100%;
+        overflow-y: auto;
+    }
+    
+    /* Section Styling */
+    .section {
+        margin-bottom: 25px;
+    }
+    
+    .section-title {
+        font-size: 18px;
+        color: #1a365d;
+        padding-bottom: 8px;
+        margin-bottom: 15px;
+        border-bottom: 2px solid #3182ce;
+        font-weight: bold;
+    }
+    
+    /* Education & Experience */
+    .education-item, .experience-item {
+        margin-bottom: 15px;
+        padding-left: 15px;
+        border-left: 2px solid #e2e8f0;
+    }
+    
+    .education-title, .experience-title {
+        font-weight: bold;
+        color: #2d3748;
+    }
+    
+    .education-subtitle, .experience-subtitle {
+        color: #4a5568;
+        font-style: italic;
+        margin: 3px 0;
+    }
+    
+    .education-date, .experience-date {
+        color: #718096;
+        font-size: 13px;
+    }
+    
+    /* Skills */
+    .skills-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+    }
+    
+    .skill-item {
+        background-color: #e2e8f0;
+        padding: 5px 12px;
+        border-radius: 15px;
+        color: #1a365d;
+        font-size: 13px;
+    }
+    
+    /* Projects */
+    .project-item {
+        margin-bottom: 15px;
+    }
+    
+    .project-title {
+        font-weight: bold;
+        color: #2d3748;
+    }
+    
+    .project-desc {
+        color: #4a5568;
+        margin-top: 5px;
+        font-size: 14px;
+        line-height: 1.4;
+    }
+    
+    /* Languages */
+    .languages-list {
+        list-style-type: none;
+        margin-left: 5px;
+    }
+    
+    .languages-list li {
+        margin-bottom: 5px;
+        font-size: 14px;
+    }
+    
+    /* Interests */
+    .interests-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    .interest-item {
+        background-color: #e2e8f0;
+        padding: 5px 12px;
+        border-radius: 15px;
+        color: #1a365d;
+        font-size: 13px;
+    }
+    
+    /* Profile Summary */
+    .profile-summary {
+        line-height: 1.6;
+        color: #4a5568;
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
