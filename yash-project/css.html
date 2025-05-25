@@ -1,97 +1,562 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Projects</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Portfolio</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        * {
             margin: 0;
-            padding: 20px;
-            text-align: center;
-            background-color: #f4f4f4;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #333;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+        }
+
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 8s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 1s; animation-duration: 6s; }
+        .particle:nth-child(3) { left: 30%; animation-delay: 2s; animation-duration: 10s; }
+        .particle:nth-child(4) { left: 40%; animation-delay: 3s; animation-duration: 7s; }
+        .particle:nth-child(5) { left: 50%; animation-delay: 4s; animation-duration: 9s; }
+        .particle:nth-child(6) { left: 60%; animation-delay: 5s; animation-duration: 8s; }
+        .particle:nth-child(7) { left: 70%; animation-delay: 6s; animation-duration: 6s; }
+        .particle:nth-child(8) { left: 80%; animation-delay: 7s; animation-duration: 11s; }
+        .particle:nth-child(9) { left: 90%; animation-delay: 8s; animation-duration: 7s; }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
         h1 {
-            color: #222;
-            margin-bottom: 40px;
-            font-size: 2.5em;
+            text-align: center;
+            color: #fff;
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 80px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            position: relative;
+            background: linear-gradient(45deg, #fff, #f0f8ff, #fff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        h1::after {
+            content: '';
+            display: block;
+            width: 150px;
+            height: 5px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #f093fb);
+            background-size: 300% 300%;
+            animation: gradientShift 4s ease infinite;
+            margin: 30px auto;
+            border-radius: 3px;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            75% { background-position: 50% 100%; }
         }
 
         .project-container {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 50px;
+            padding: 40px 0;
+            margin-bottom: 100px;
         }
 
         .project-card {
-            background-color: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
             overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
-            width: 320px;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            position: relative;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            transform-style: preserve-3d;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 25px;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
         }
 
         .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            transform: translateY(-25px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.25);
+        }
+
+        .project-image-container {
+            position: relative;
+            overflow: hidden;
+            height: 280px;
         }
 
         .project-image {
             width: 100%;
-            height: 200px;
+            height: 100%;
             object-fit: cover;
-            cursor: pointer;
-            transition: transform 0.3s ease;
+            transition: all 0.5s ease;
+            filter: brightness(0.9) saturate(1.1);
         }
 
         .project-card:hover .project-image {
-            transform: scale(1.05);
+            filter: brightness(1.1) saturate(1.3) contrast(1.1);
+            transform: scale(1.1);
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.7) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-content {
+            padding: 35px;
+            position: relative;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
         }
 
         .project-title {
-            padding: 15px;
-            font-size: 1.2em;
-            font-weight: 600;
-            color: #444;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        .project-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        .project-description {
+            color: #555;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            font-weight: 400;
+        }
+
+        .project-tech {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .tech-tag {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover .tech-tag {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 60px;
+            padding: 0 40px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 50%, #fd79a8 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.6);
+            background: linear-gradient(135deg, #ee5a24 0%, #fd79a8 50%, #ff6b6b 100%);
+        }
+
+        .btn a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .back-btn-container {
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        /* Loading animations */
+        .project-card {
+            animation: slideInUp 1s ease forwards;
+            opacity: 0;
+            transform: translateY(60px);
+        }
+
+        .project-card:nth-child(1) { animation-delay: 0.2s; }
+        .project-card:nth-child(2) { animation-delay: 0.4s; }
+        .project-card:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes slideInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Media Queries */
+        @media (max-width: 1200px) {
+            .project-container {
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+                gap: 40px;
+            }
+
+            h1 {
+                font-size: 3.5rem;
+            }
         }
 
         @media (max-width: 768px) {
+            body {
+                padding: 20px 15px;
+            }
+
+            h1 {
+                font-size: 2.8rem;
+                margin-bottom: 50px;
+            }
+
             .project-container {
-                flex-direction: column;
-                align-items: center;
+                grid-template-columns: 1fr;
+                gap: 35px;
+                padding: 20px 0;
+                margin-bottom: 70px;
+            }
+
+            .project-card {
+                margin: 0 10px;
+            }
+
+            .project-image-container {
+                height: 250px;
+            }
+
+            .project-content {
+                padding: 25px;
+            }
+
+            .project-title {
+                font-size: 1.5rem;
+                letter-spacing: 1.5px;
+            }
+
+            .project-description {
+                font-size: 1rem;
+                margin-bottom: 20px;
+            }
+
+            .btn {
+                height: 55px;
+                padding: 0 35px;
+                font-size: 1.1rem;
+            }
+
+            h1::after {
+                width: 100px;
             }
         }
-        .btn{
-            height: 40px;
-            width: 150px;
-            text-align:center;
-            border-radius: 60px;
-            background-color: rgb(215, 232, 101);
-            margin-top: 100px;
+
+        @media (max-width: 480px) {
+            body {
+                padding: 15px 10px;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+                margin-bottom: 40px;
+            }
+
+            .project-container {
+                gap: 30px;
+                grid-template-columns: 1fr;
+            }
+
+            .project-card {
+                margin: 0 5px;
+                border-radius: 20px;
+            }
+
+            .project-image-container {
+                height: 200px;
+            }
+
+            .project-content {
+                padding: 20px;
+            }
+
+            .project-title {
+                font-size: 1.4rem;
+                margin-bottom: 15px;
+            }
+
+            .project-description {
+                font-size: 0.95rem;
+                line-height: 1.6;
+                margin-bottom: 18px;
+            }
+
+            .tech-tag {
+                font-size: 0.85rem;
+                padding: 8px 16px;
+            }
+
+            .btn {
+                height: 50px;
+                padding: 0 30px;
+                font-size: 1rem;
+                letter-spacing: 1.5px;
+            }
+
+            h1::after {
+                width: 80px;
+                height: 4px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .project-container {
+                padding: 15px 0;
+            }
+
+            .project-card {
+                margin: 0 2px;
+            }
+
+            .project-image-container {
+                height: 180px;
+            }
+
+            .project-content {
+                padding: 18px;
+            }
+
+            .project-title {
+                font-size: 1.3rem;
+            }
+
+            .project-description {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Large screens enhancement */
+        @media (min-width: 1400px) {
+            h1 {
+                font-size: 4.5rem;
+            }
+
+            .project-container {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 60px;
+            }
+
+            .project-image-container {
+                height: 320px;
+            }
+
+            .project-content {
+                padding: 40px;
+            }
         }
     </style>
 </head>
-<body style="background-color: rgba(255, 246, 207, 0.981);">
-    <h1>My Projects</h1>
-
-    <div class="project-container">
-        <a href="./chess.html" class="project-card">
-            <img src="./assets/chess.jpg" alt="Chess Game Project" class="project-image">
-            <div class="project-title">Chess Game</div>
-        </a>
-        <a href="./flag.html" class="project-card">
-            <img src="./assets/india.jpeg" alt="Indian Flag Display Project" class="project-image">
-            <div class="project-title">Indian Flag</div>
-        </a>
-        <a href="./youtube.html" class="project-card">
-            <img src="./assets/you.jpg" alt="YouTube Clone Project" class="project-image">
-            <div class="project-title">YouTube Clone</div>
-        </a>
+<body>
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
     </div>
-    <button class="btn"><a href="../index.html">Back To Home</a></button>
+
+    <div class="container">
+        <h1>My Projects</h1>
+
+        <div class="project-container">
+            <a href="./chess.html" class="project-card">
+                <div class="project-image-container">
+                    <img src="./assets/chess.jpg" alt="Interactive Chess Game" class="project-image">
+                    <div class="project-overlay"></div>
+                </div>
+                <div class="project-content">
+                    <div class="project-title">Chess Game</div>
+                    <div class="project-description">
+                        An elegant and fully interactive chess game featuring intelligent AI opponent, real-time move validation, and an intuitive drag-and-drop interface for seamless gameplay.
+                    </div>
+                    <div class="project-tech">
+                        <span class="tech-tag">CSS</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="./flag.html" class="project-card">
+                <div class="project-image-container">
+                    <img src="./assets/india.jpeg" alt="Indian Flag CSS Art" class="project-image">
+                    <div class="project-overlay"></div>
+                </div>
+                <div class="project-content">
+                    <div class="project-title">Indian Flag</div>
+                    <div class="project-description">
+                        A stunning CSS art masterpiece showcasing the Indian flag with smooth animations, patriotic color schemes, and beautiful design elements that celebrate national pride.
+                    </div>
+                    <div class="project-tech">
+                        <span class="tech-tag">CSS</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="./youtube.html" class="project-card">
+                <div class="project-image-container">
+                    <img src="./assets/you.jpg" alt="YouTube Clone Interface" class="project-image">
+                    <div class="project-overlay"></div>
+                </div>
+                <div class="project-content">
+                    <div class="project-title">YouTube Clone</div>
+                    <div class="project-description">
+                        A pixel-perfect YouTube clone featuring responsive design, modern UI patterns, interactive video player, and seamless navigation that mirrors the original platform.
+                    </div>
+                    <div class="project-tech">
+                        <span class="tech-tag">CSS</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="back-btn-container">
+            <button class="btn">
+                <a href="../index.html">← Back To Home</a>
+            </button>
+        </div>
+    </div>
 </body>
 </html>
-
-

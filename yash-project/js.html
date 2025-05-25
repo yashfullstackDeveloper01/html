@@ -1,115 +1,547 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Projects</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 40px 20px;
-      background-color: #f9f9f9;
-      text-align: center;
-    }
-
-    h1 {
-      color: #2c3e50;
-      margin-bottom: 40px;
-    }
-
-    .project-container {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      flex-wrap: wrap;
-    }
-
-    .project-card {
-      background-color: #fff;
-      border-radius: 10px;
-      width: 300px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: pointer;
-      text-decoration: none;
-      color: #333;
-    }
-
-    .project-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    }
-
-    .project-image {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-top-left-radius: 10px;
-      border-top-right-radius: 10px;
-    }
-
-    .project-title {
-      padding: 15px;
-      font-size: 18px;
-      font-weight: bold;
-    }
-    .btn{
-            height: 40px;
-            width: 150px;
-            text-align:center;
-            border-radius: 60px;
-            background-color: rgb(215, 232, 101);
-            margin-top: 100px;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Projects</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-  </style>
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #333;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+        }
+
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 8s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 1s; animation-duration: 6s; }
+        .particle:nth-child(3) { left: 30%; animation-delay: 2s; animation-duration: 10s; }
+        .particle:nth-child(4) { left: 40%; animation-delay: 3s; animation-duration: 7s; }
+        .particle:nth-child(5) { left: 50%; animation-delay: 4s; animation-duration: 9s; }
+        .particle:nth-child(6) { left: 60%; animation-delay: 5s; animation-duration: 8s; }
+        .particle:nth-child(7) { left: 70%; animation-delay: 6s; animation-duration: 6s; }
+        .particle:nth-child(8) { left: 80%; animation-delay: 7s; animation-duration: 11s; }
+        .particle:nth-child(9) { left: 90%; animation-delay: 8s; animation-duration: 7s; }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff;
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 80px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            position: relative;
+            background: linear-gradient(45deg, #fff, #f0f8ff, #fff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        h1::after {
+            content: '';
+            display: block;
+            width: 150px;
+            height: 5px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #f093fb);
+            background-size: 300% 300%;
+            animation: gradientShift 4s ease infinite;
+            margin: 30px auto;
+            border-radius: 3px;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            75% { background-position: 50% 100%; }
+        }
+
+        .project-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 50px;
+            padding: 40px 0;
+            margin-bottom: 100px;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            position: relative;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            transform-style: preserve-3d;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 25px;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card:hover {
+            transform: translateY(-25px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.25);
+        }
+
+        .project-image-container {
+            position: relative;
+            overflow: hidden;
+            height: 200px;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+            filter: brightness(0.9) saturate(1.1);
+        }
+
+        .project-card:hover .project-image {
+            filter: brightness(1.1) saturate(1.3) contrast(1.1);
+            transform: scale(1.1);
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.7) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-content {
+            padding: 30px;
+            position: relative;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2c3e50;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        .project-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 60px;
+            padding: 0 40px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 50%, #fd79a8 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.6);
+            background: linear-gradient(135deg, #ee5a24 0%, #fd79a8 50%, #ff6b6b 100%);
+        }
+
+        .btn a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .back-btn-container {
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        /* Loading animations */
+        .project-card {
+            animation: slideInUp 1s ease forwards;
+            opacity: 0;
+            transform: translateY(60px);
+        }
+
+        .project-card:nth-child(1) { animation-delay: 0.2s; }
+        .project-card:nth-child(2) { animation-delay: 0.4s; }
+        .project-card:nth-child(3) { animation-delay: 0.6s; }
+        .project-card:nth-child(4) { animation-delay: 0.8s; }
+        .project-card:nth-child(5) { animation-delay: 1.0s; }
+        .project-card:nth-child(6) { animation-delay: 1.2s; }
+        .project-card:nth-child(7) { animation-delay: 1.4s; }
+        .project-card:nth-child(8) { animation-delay: 1.6s; }
+
+        @keyframes slideInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Media Queries */
+        @media (max-width: 1200px) {
+            .project-container {
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+                gap: 40px;
+            }
+
+            h1 {
+                font-size: 3.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 15px;
+            }
+
+            h1 {
+                font-size: 2.8rem;
+                margin-bottom: 50px;
+            }
+
+            .project-container {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 35px;
+                padding: 20px 0;
+                margin-bottom: 70px;
+            }
+
+            .project-card {
+                margin: 0 10px;
+            }
+
+            .project-image-container {
+                height: 180px;
+            }
+
+            .project-content {
+                padding: 25px;
+            }
+
+            .project-title {
+                font-size: 1.2rem;
+                letter-spacing: 1.5px;
+            }
+
+            .btn {
+                height: 55px;
+                padding: 0 35px;
+                font-size: 1.1rem;
+            }
+
+            h1::after {
+                width: 100px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 15px 10px;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+                margin-bottom: 40px;
+            }
+
+            .project-container {
+                gap: 30px;
+                grid-template-columns: 1fr;
+            }
+
+            .project-card {
+                margin: 0 5px;
+                border-radius: 20px;
+            }
+
+            .project-image-container {
+                height: 160px;
+            }
+
+            .project-content {
+                padding: 20px;
+            }
+
+            .project-title {
+                font-size: 1.1rem;
+                margin-bottom: 15px;
+            }
+
+            .btn {
+                height: 50px;
+                padding: 0 30px;
+                font-size: 1rem;
+                letter-spacing: 1.5px;
+            }
+
+            h1::after {
+                width: 80px;
+                height: 4px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .project-container {
+                padding: 15px 0;
+            }
+
+            .project-card {
+                margin: 0 2px;
+            }
+
+            .project-image-container {
+                height: 140px;
+            }
+
+            .project-content {
+                padding: 18px;
+            }
+
+            .project-title {
+                font-size: 1rem;
+            }
+        }
+
+        /* Large screens enhancement */
+        @media (min-width: 1400px) {
+            h1 {
+                font-size: 4.5rem;
+            }
+
+            .project-container {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 60px;
+            }
+
+            .project-image-container {
+                height: 220px;
+            }
+
+            .project-content {
+                padding: 35px;
+            }
+        }
+    </style>
 </head>
-<body style="background-color: rgba(255, 246, 207, 0.981);">
+<body>
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
 
-  <h1>My Projects</h1>
-  <div class="project-container">
+    <div class="container">
+        <h1>My Projects</h1>
 
-    <a href="./bill.html" class="project-card">
-      <img src="./assets/bill.jpg" alt="Electric Bill" class="project-image">
-      <div class="project-title">Electric Bill</div>
-    </a>
+        <div class="project-container">
+            <a href="./bill.html" class="project-card">
+                <div class="project-image-container">
+                    <img src="./assets/bill.jpg" alt="Electric Bill" class="project-image">
+                    <div class="project-overlay"></div>
+                </div>
+                <div class="project-content">
+                    <div class="project-title">Electric Bill</div>
+                </div>
+            </a>
 
-    <a href="./calculater.html" class="project-card">
-      <img src="./assets/calculater.jpg" alt="Calculator" class="project-image">
-      <div class="project-title">Calculator</div>
-    </a>
+            <a href="./calculater.html" class="project-card">
+                <div class="project-image-container">
+                    <img src="./assets/calculater.jpg" alt="Calculator" class="project-image">
+                    <div class="project-overlay"></div>
+                </div>
+                <div class="project-content">
+                    <div class="project-title">Calculator</div>
+                </div>
+            </a>
 
-    <a href="./dateandday.html" class="project-card">
-      <img src="./assets/dayyy.jpg" alt="Date and Day Checker" class="project-image">
-      <div class="project-title">Date and Day Checker</div>
-    </a>
+            <a href="./dateandday.html" class="project-card">
+                <div class="project-image-container">
+                    <img src="./assets/dayyy.jpg" alt="Date and Day Checker" class="project-image">
+                    <div class="project-overlay"></div>
+                </div>
+                <div class="project-content">
+                    <div class="project-title">Date and Day Checker</div>
+                </div>
+            </a>
 
-    <a href="./half_ticket.html" class="project-card">
-      <img src="./assets/half.jpg" alt="Half Ticket" class="project-image">
-      <div class="project-title">Half Ticket</div>
-    </a>
+            <a href="./half_ticket.html" class="project-card">
+                <div class="project-image-container">
+                    <img src="./assets/half.jpg" alt="Half Ticket" class="project-image">
+                    <div class="project-overlay"></div>
+                </div>
+                <div class="project-content">
+                    <div class="project-title">Half Ticket</div>
+                </div>
+            </a>
 
-    <a href="./kbc.html" class="project-card">
-      <img src="./assets/kbc.jpg" alt="KBC Game" class="project-image">
-      <div class="project-title">KBC Game</div>
-    </a>
+            <a href="./kbc.html" class="project-card">
+                <div class="project-image-container">
+                    <img src="./assets/kbc.jpg" alt="KBC Game" class="project-image">
+                    <div class="project-overlay"></div>
+                </div>
+                <div class="project-content">
+                    <div class="project-title">KBC Game</div>
+                </div>
+            </a>
 
-    <a href="./lottrygame.html" class="project-card">
-      <img src="./assets/lottery.jpg" alt="Lottery Game" class="project-image">
-      <div class="project-title">Lottery Game</div>
-    </a>
+            <a href="./lottrygame.html" class="project-card">
+                <div class="project-image-container">
+                    <img src="./assets/lottery.jpg" alt="Lottery Game" class="project-image">
+                    <div class="project-overlay"></div>
+                </div>
+                <div class="project-content">
+                    <div class="project-title">Lottery Game</div>
+                </div>
+            </a>
 
-    <a href="./myjava.html" class="project-card">
-      <img src="./assets/java.jpg" alt="JS Project" class="project-image">
-      <div class="project-title">JS Project</div>
-    </a>
+            <a href="./myjava.html" class="project-card">
+                <div class="project-image-container">
+                    <img src="./assets/java.jpg" alt="JS Project" class="project-image">
+                    <div class="project-overlay"></div>
+                </div>
+                <div class="project-content">
+                    <div class="project-title">JS Project</div>
+                </div>
+            </a>
 
-    <a href="./vovels.html" class="project-card">
-      <img src="./assets/vovels.jpg" alt="Vowel Checker" class="project-image">
-      <div class="project-title">Vowel Checker</div>
-    </a>
+            <a href="./vovels.html" class="project-card">
+                <div class="project-image-container">
+                    <img src="./assets/vovels.jpg" alt="Vowel Checker" class="project-image">
+                    <div class="project-overlay"></div>
+                </div>
+                <div class="project-content">
+                    <div class="project-title">Vowel Checker</div>
+                </div>
+            </a>
+        </div>
 
-  </div>
-  <button class="btn"><a href="../index.html">Back To Home</a></button>
+        <div class="back-btn-container">
+            <button class="btn">
+                <a href="../index.html">← Back To Home</a>
+            </button>
+        </div>
+    </div>
 </body>
 </html>
