@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,21 +42,78 @@
             animation: float 6s infinite linear;
         }
 
-        .particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 8s; }
-        .particle:nth-child(2) { left: 20%; animation-delay: 1s; animation-duration: 6s; }
-        .particle:nth-child(3) { left: 30%; animation-delay: 2s; animation-duration: 10s; }
-        .particle:nth-child(4) { left: 40%; animation-delay: 3s; animation-duration: 7s; }
-        .particle:nth-child(5) { left: 50%; animation-delay: 4s; animation-duration: 9s; }
-        .particle:nth-child(6) { left: 60%; animation-delay: 5s; animation-duration: 8s; }
-        .particle:nth-child(7) { left: 70%; animation-delay: 6s; animation-duration: 6s; }
-        .particle:nth-child(8) { left: 80%; animation-delay: 7s; animation-duration: 11s; }
-        .particle:nth-child(9) { left: 90%; animation-delay: 8s; animation-duration: 7s; }
+        .particle:nth-child(1) {
+            left: 10%;
+            animation-delay: 0s;
+            animation-duration: 8s;
+        }
+
+        .particle:nth-child(2) {
+            left: 20%;
+            animation-delay: 1s;
+            animation-duration: 6s;
+        }
+
+        .particle:nth-child(3) {
+            left: 30%;
+            animation-delay: 2s;
+            animation-duration: 10s;
+        }
+
+        .particle:nth-child(4) {
+            left: 40%;
+            animation-delay: 3s;
+            animation-duration: 7s;
+        }
+
+        .particle:nth-child(5) {
+            left: 50%;
+            animation-delay: 4s;
+            animation-duration: 9s;
+        }
+
+        .particle:nth-child(6) {
+            left: 60%;
+            animation-delay: 5s;
+            animation-duration: 8s;
+        }
+
+        .particle:nth-child(7) {
+            left: 70%;
+            animation-delay: 6s;
+            animation-duration: 6s;
+        }
+
+        .particle:nth-child(8) {
+            left: 80%;
+            animation-delay: 7s;
+            animation-duration: 11s;
+        }
+
+        .particle:nth-child(9) {
+            left: 90%;
+            animation-delay: 8s;
+            animation-duration: 7s;
+        }
 
         @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
         }
 
         .container {
@@ -71,7 +129,7 @@
             font-size: 4rem;
             font-weight: 800;
             margin-bottom: 80px;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
             position: relative;
             background: linear-gradient(45deg, #fff, #f0f8ff, #fff);
             background-size: 200% 200%;
@@ -82,8 +140,15 @@
         }
 
         @keyframes shimmer {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
         }
 
         h1::after {
@@ -100,9 +165,19 @@
         }
 
         @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            75% { background-position: 50% 100%; }
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            75% {
+                background-position: 50% 100%;
+            }
         }
 
         .project-container {
@@ -120,7 +195,7 @@
             border-radius: 25px;
             overflow: hidden;
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
             position: relative;
             cursor: pointer;
             text-decoration: none;
@@ -135,7 +210,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
             opacity: 0;
             transition: opacity 0.3s ease;
             border-radius: 25px;
@@ -147,7 +222,7 @@
 
         .project-card:hover {
             transform: translateY(-25px) rotateX(5deg) rotateY(5deg);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.25);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
         }
 
         .project-image-container {
@@ -175,7 +250,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.7) 100%);
+            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -275,7 +350,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transition: left 0.6s;
         }
 
@@ -309,9 +384,17 @@
             transform: translateY(60px);
         }
 
-        .project-card:nth-child(1) { animation-delay: 0.2s; }
-        .project-card:nth-child(2) { animation-delay: 0.4s; }
-        .project-card:nth-child(3) { animation-delay: 0.6s; }
+        .project-card:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .project-card:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .project-card:nth-child(3) {
+            animation-delay: 0.6s;
+        }
 
         @keyframes slideInUp {
             to {
@@ -486,6 +569,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="particles">
         <div class="particle"></div>
@@ -511,7 +595,8 @@
                 <div class="project-content">
                     <div class="project-title">Form</div>
                     <div class="project-description">
-                        An elegant and fully interactive chess game featuring intelligent AI opponent, real-time move validation, and an intuitive drag-and-drop interface for seamless gameplay.
+                        An elegant and fully interactive chess game featuring intelligent AI opponent, real-time move
+                        validation, and an intuitive drag-and-drop interface for seamless gameplay.
                     </div>
                     <div class="project-tech">
                         <span class="tech-tag">Html</span>
@@ -527,7 +612,8 @@
                 <div class="project-content">
                     <div class="project-title">Calendar</div>
                     <div class="project-description">
-                        A stunning CSS art masterpiece showcasing the Indian flag with smooth animations, patriotic color schemes, and beautiful design elements that celebrate national pride.
+                        "This Calendar Project is a dynamic and user-friendly tool that displays days, which makes it
+                        ideal for personal planning and daily scheduling.
                     </div>
                     <div class="project-tech">
                         <span class="tech-tag">Html</span>
@@ -543,7 +629,8 @@
                 <div class="project-content">
                     <div class="project-title">YouTube Clone</div>
                     <div class="project-description">
-                        A pixel-perfect YouTube clone featuring responsive design, modern UI patterns, interactive video player, and seamless navigation that mirrors the original platform.
+                        A pixel-perfect YouTube clone featuring responsive design, modern UI patterns, interactive video
+                        player, and seamless navigation that mirrors the original platform.
                     </div>
                     <div class="project-tech">
                         <span class="tech-tag">Html</span>
@@ -559,4 +646,5 @@
         </div>
     </div>
 </body>
+
 </html>
