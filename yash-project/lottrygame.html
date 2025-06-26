@@ -1,130 +1,227 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Lottery: The Game</title>
+    <title>Lottery Game</title>
     <style>
-        /* main box */
-        .main-container {
-            background-color: rgb(166, 255, 254);
-            width: 80vw;
-            margin-left: 15vw;
-            height: 40vw;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            border-radius: 20px;
-            box-shadow: 10px 10px 90px rgb(228, 0, 0);
-            margin-top: 5px;
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
         }
-        /* HTML: <div class="loader"></div> */
-        .loader {
-            width: 120px;
-            height: 20px;
-            border-radius: 20px;
-            background:
-                repeating-linear-gradient(135deg, #f03355 0 10px, #ffa516 0 20px) 0/0% no-repeat,
-                repeating-linear-gradient(135deg, #ddd 0 10px, #eee 0 20px) 0/100%;
-            animation: l3 2s infinite;
-            padding: 10px;
-            margin-left: 250px;
 
+        .main-container {
+            background: rgba(255, 255, 255, 0.9);
+            width: 80%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
         }
-        @keyframes l3 {
-            100% {
-                background-size: 100%
-            }
+
+        .title {
+            text-align: center;
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
-        .input-container {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+
+        .coins-display {
+            text-align: center;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #333;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 10px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         .display {
-            width: 90%;
-            height: 60%;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 20px;
+            min-height: 80px;
             display: flex;
-            justify-content: center;
             align-items: center;
-            font-size: 22px;
-            margin-top: 45px;
-            padding: 20px;
-            margin-left: 30px;
+            justify-content: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            color: #333;
+            font-weight: 500;
+        }
+
+        .loader {
+            width: 120px;
+            height: 8px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.3);
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .loader::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1);
+            border-radius: 10px;
+            animation: loading 2s ease-in-out;
+        }
+
+        @keyframes loading {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
         }
 
         .input-box {
-            height: 44px;
+            height: 45px;
             width: 80%;
-            font-size: 22px;
-            margin-top: 20px;
-            border-radius: 20px;
+            max-width: 300px;
+            font-size: 16px;
+            padding: 0 15px;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            background: white;
         }
+
+        .input-box:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 15px rgba(102, 126, 234, 0.3);
+            transform: translateY(-2px);
+        }
+
         .button {
             width: 80%;
-            margin: 20px;
-            height: 44px;
-            background-color: rgb(255, 238, 0);
-            font-size: 22px;
+            max-width: 300px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-size: 18px;
             border: none;
-            border-radius: 20px;
-            color: rgb(255, 0, 0);
-            box-shadow: 0px 0px 26px;
+            border-radius: 12px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .button:active {
+            transform: translateY(0);
+        }
+
+        .hidden {
+            display: none;
         }
     </style>
-    <script>
-        let coins = 100;
-        function startplay() {
-            document.getElementById("loader").style.display = "block";
-
-            setTimeout(() => {
-                startLottery();
-            }, 2000);
-        }
-        function startLottery() {
-            document.getElementById("loader").style.display = "none";
-            let output = parseInt((Math.random() * 100) / 10);
-            let betCoins = document.getElementById("coins").value;
-            let betNumber = document.getElementById("input").value;
-            if (betCoins <= 0 || betNumber < 0) {
-                document.getElementById("display-text").innerHTML = "<br/> your coins is " +coins;
-                return;
-            }
-            if (betCoins == betNumber) {
-                document.getElementById("display-text").innerHTML = "check  your bet its more than coins   ";
-                return;
-            }
-            if (betCoins == betNumber) {
-                coins += betCoins * 7;
-            } else {
-                coins -= betCoins;
-            }
-            document.getElementById("display-text").innerHTML =
-                "Loottery Number =" + output + "<br/>your coins coins is" +coins;
-            document.getElementById("display-text");
-        }
-        window.onload = function () {
-            startplay();
-        }
-    </script>
 </head>
 <body>
-    <h1
-        style="font-size: 44px; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif black; border: 3PX solid white;height: 70PX;width: 370PX; text-align: center; background-color: rgb(255, 0, 0); box-shadow: 0PX 0PX 21PX rgb(178, 108, 108); border-radius: 40PX; margin-left: 700px;">
-        lottery game </h1> <br>
-
-    <body style="margin: 0px">
-        <div class="main-container">
-            <div class="display" id="display">
-                <h1 class="display-text" id="display-text"></h1>
-                <div id="loader" class="loader"></div>
-            </div>
-            <div class="input-container">
-                <input id="input" type="number" class="input-box" placeholder="Bet number" />
-                <input id="coins" type="number" class="input-box" placeholder="coins" />
-
-                <button class="button" onmouseenter="startplay()">click me</button>
-            </div>
+    <div class="main-container">
+        <h1 class="title">Lottery Game</h1>
+        
+        <div class="coins-display" id="coins-display">Your Coins: 100</div>
+        
+        <div class="display" id="display">
+            <div id="display-text">Enter your bet number (0-9) and coin amount, then click Play!</div>
+            <div id="loader" class="loader hidden"></div>
         </div>
-    </body>
+        
+        <div class="input-container">
+            <input id="bet-number" type="number" class="input-box" placeholder="Bet number (0-9)" min="0" max="9" />
+            <input id="bet-coins" type="number" class="input-box" placeholder="Coins to bet" min="1" />
+            <button class="button" onclick="startGame()">Play Lottery</button>
+        </div>
+    </div>
+
+    <script>
+        let coins = 100;
+
+        function updateCoinsDisplay() {
+            document.getElementById('coins-display').textContent = 'Your Coins: ' + coins;
+        }
+
+        function startGame() {
+            let betNumber = parseInt(document.getElementById('bet-number').value);
+            let betCoins = parseInt(document.getElementById('bet-coins').value);
+            
+            // Validate inputs
+            if (isNaN(betNumber) || betNumber < 0 || betNumber > 9) {
+                document.getElementById('display-text').innerHTML = 'Please enter a valid number between 0-9!';
+                return;
+            }
+            
+            if (isNaN(betCoins) || betCoins <= 0) {
+                document.getElementById('display-text').innerHTML = 'Please enter a valid bet amount!';
+                return;
+            }
+            
+            if (betCoins > coins) {
+                document.getElementById('display-text').innerHTML = 'Not enough coins! You have ' + coins + ' coins.';
+                return;
+            }
+
+            // Show loading
+            document.getElementById('display-text').innerHTML = 'Drawing the winning number...';
+            document.getElementById('loader').classList.remove('hidden');
+
+            setTimeout(function() {
+                playLottery(betNumber, betCoins);
+            }, 2000);
+        }
+
+        function playLottery(betNumber, betCoins) {
+            document.getElementById('loader').classList.add('hidden');
+            
+            let winningNumber = Math.floor(Math.random() * 10); // 0-9
+            
+            if (betNumber === winningNumber) {
+                // Win!
+                let winnings = betCoins * 7;
+                coins += winnings;
+                document.getElementById('display-text').innerHTML = 
+                    'YOU WIN!<br/>Winning Number: ' + winningNumber + 
+                    '<br/>You won ' + winnings + ' coins!<br/>Your coins: ' + coins;
+            } else {
+                // Lose
+                coins -= betCoins;
+                document.getElementById('display-text').innerHTML = 
+                    'You lose!<br/>Winning Number: ' + winningNumber + 
+                    '<br/>Your guess: ' + betNumber + 
+                    '<br/>Lost ' + betCoins + ' coins<br/>Your coins: ' + coins;
+            }
+            
+            updateCoinsDisplay();
+            
+            if (coins <= 0) {
+                document.getElementById('display-text').innerHTML += '<br/><br/>Game Over! You\'re out of coins!';
+            }
+        }
+    </script>
+</body>
 </html>
